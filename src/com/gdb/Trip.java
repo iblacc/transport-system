@@ -2,6 +2,7 @@ package com.gdb;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.lang.String;
 
 public class Trip {
     private int id;
