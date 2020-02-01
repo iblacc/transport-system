@@ -3,21 +3,21 @@ package com.gdb;
 import java.util.ArrayList;
 
 public class Bus {
-    private int id;
+    private static int busCount;
+    private String id;
     private ArrayList<Trip> completedTrips;
     private String brand;
     private int capacity;
-    private ArrayList<Integer> availableSeats;
+    private ArrayList<Integer> availableSeats= new ArrayList<Integer>();
 
-    public Bus(int id, ArrayList<Trip> completedTrips, String brand, int capacity, ArrayList<Integer> availableSeats) {
-        this.id = id;
-        this.completedTrips = completedTrips;
+    public Bus(String brand, int capacity) {
+        this.id = String.format("%s%d","Bus-", ++busCount);
         this.brand = brand;
         this.capacity = capacity;
-        this.availableSeats = availableSeats;
+        this.setAvailableSeats();
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -33,7 +33,24 @@ public class Bus {
         return capacity;
     }
 
-    public ArrayList<Integer> getAvailableSeats() {
+    private void setAvailableSeats() {
+        for(int seat = 1; seat <= capacity; seat++){
+            availableSeats.add(seat);
+        }
+    }
+
+    public ArrayList<Integer> getAvailableSeats(){
         return availableSeats;
+    }
+
+    public int allocateSeat(int bookedSeat){
+        int chair = 0;
+        for(int seat = 0; seat < availableSeats.size(); seat++){
+            if(bookedSeat == availableSeats.get(seat)){
+                chair = availableSeats.get(seat);
+                availableSeats.remove(seat);
+            }
+        }
+        return chair;
     }
 }
