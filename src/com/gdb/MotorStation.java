@@ -131,3 +131,14 @@ public class MotorStation {
         complaints.add(complaint);
         customer.addToComplaints(complaint);
     }
+    public ArrayList<Complaints> resolveComplaints(String userId){
+        ListIterator<Complaints> resolvedComplaints = complaints.listIterator();
+        Complaints complaint;
+        while(resolvedComplaints.hasNext()){
+            complaint = resolvedComplaints.next();
+            if(complaint.getUserId().equalsIgnoreCase(userId)){
+
+            }
+        }
+
+    }
