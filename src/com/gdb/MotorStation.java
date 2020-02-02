@@ -112,3 +112,16 @@ public class MotorStation {
         }
         return null;
     }
+
+    public boolean bookTrip(Customer customer, Trip trip, int seatNo){
+//        Trip trip = checkTrip(tripId);
+        if(customer.withdraw(trip.getAmount())){
+            trip.addPassenger(customer);
+            trip.allocateSeat(seatNo);
+            trip.setSeatOwner(customer.getCustomerId(), seatNo);
+            customer.addToTrips(trip);
+            return true;
+        }
+        return false;
+
+    }
