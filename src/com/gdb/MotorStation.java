@@ -80,3 +80,12 @@ public class MotorStation {
     public ArrayList<Trip> getCompletedTrips(){
         return completedTrips;
     }
+    public static Customer deleteUser(String customerId) {
+        if (!customers.contains(customerId)) {
+            System.out.println("User does not exist");
+        } else {
+            customers.remove(customerId);
+            System.out.println("User successfully deleted");
+        }
+        return null;
+    }
