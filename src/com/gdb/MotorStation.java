@@ -73,3 +73,10 @@ public class MotorStation {
         }
         return null;
     }
+    public ArrayList<Trip> getAvailableTrips() {
+        return availableTrips;
+    }
+
+    public ArrayList<Trip> getCompletedTrips(){
+        return completedTrips;
+    }
