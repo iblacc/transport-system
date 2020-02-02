@@ -49,3 +49,15 @@ public class MotorStation {
         }
         return null;
     }
+
+    public void registerAdmin(String name, String email, String phoneNumber, String address){
+        Admin admin = new Admin(name, email, phoneNumber, address);
+        this.users.add(admin);
+
+    }
+
+    public void registerCustomer(String name, String email, String phoneNumber, String address){
+        Customer customer = new Customer(name, email, phoneNumber, address);
+        this.users.add(customer);
+
+    }
