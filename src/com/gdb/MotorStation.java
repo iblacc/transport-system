@@ -125,3 +125,9 @@ public class MotorStation {
         return false;
 
     }
+
+    public void makeComplaints(String message, Customer customer, int tripId){
+        Complaints complaint = new Complaints(message, tripId, customer.getCustomerId());
+        complaints.add(complaint);
+        customer.addToComplaints(complaint);
+    }
