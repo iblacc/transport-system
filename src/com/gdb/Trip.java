@@ -67,3 +67,17 @@ public class Trip {
     public ArrayList<Integer> getAvailableSeats(){
         return availableSeats;
     }
+
+    public void setSeatOwner(String customerId, int seatNo) {
+        ArrayList<Integer> seats = this.seatOwners.get(customerId);
+        if(seats != null){
+            seats.add(seatNo);
+            this.seatOwners.put(customerId, seats);
+            return;
+        }
+        this.seatOwners.put(customerId, new ArrayList<Integer>(seatNo));
+    }
+
+    public HashMap<String, ArrayList<Integer>> getSeatOwner() {
+        return seatOwners;
+    }
