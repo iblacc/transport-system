@@ -20,3 +20,9 @@ public class MotorStation {
         this.complaints = new ArrayList<>();
         this.users = new ArrayList<>();
     }
+
+    public boolean addBus(String brand, int capacity){
+
+        buses.add(new Bus( brand, capacity));
+        return true;
+    }
