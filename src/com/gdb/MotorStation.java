@@ -37,3 +37,15 @@ public class MotorStation {
             return false;
         }
     }
+
+    private Bus checkBus(String id){
+        ListIterator<Bus> busListIterator = buses.listIterator();
+        Bus bus;
+        while (busListIterator.hasNext()){
+            bus = busListIterator.next();
+            if(id.equals(bus.getId())){
+                return bus;
+            }
+        }
+        return null;
+    }
