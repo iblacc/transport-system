@@ -26,3 +26,14 @@ public class MotorStation {
         buses.add(new Bus( brand, capacity));
         return true;
     }
+
+    public boolean removeBus(String id){
+        Bus bus = checkBus(id);
+
+        if(bus != null){
+            this.buses.remove(bus);
+            return true;
+        } else {
+            return false;
+        }
+    }
