@@ -80,12 +80,23 @@ public class MotorStation {
     public ArrayList<Trip> getCompletedTrips(){
         return completedTrips;
     }
-    public static Customer deleteUser(String customerId) {
-        if (!customers.contains(customerId)) {
-            System.out.println("User does not exist");
-        } else {
-            customers.remove(customerId);
-            System.out.println("User successfully deleted");
+//    public static Customer deleteUser(String customerId) {
+//        if (!customers.contains(customerId)) {
+//            System.out.println("User does not exist");
+//        } else {
+//            customers.remove(customerId);
+//            System.out.println("User successfully deleted");
+//        }
+//        return null;
+//    }
+private Customer searchCustomer (String id) {
+    ListIterator<User> customerListIterator = users.listIterator();
+    User customer;
+    while (customerListIterator.hasNext()) {
+        customer = customerListIterator.next();
+        if(id.equals(customer.getCustomerId())) {
+            return customer;
         }
-        return null;
     }
+    return null;
+}
