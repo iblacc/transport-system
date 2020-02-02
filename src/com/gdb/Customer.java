@@ -43,3 +43,21 @@ public class Customer extends User {
         return trips;
     }
 
+    public void addToTrips(Trip trip){
+        trips.add(trip);
+    }
+    public boolean deposit(double amount){
+        this.accBalance += amount;
+        return true;
+    }public boolean withdraw(double amount){
+        if(accBalance >= amount) {
+            this.accBalance -= amount;
+            return true;
+        }
+        return false;
+    }
+    public void addToComplaints(Complaints complaint){
+        complaints.add(complaint);
+    }
+
+}
