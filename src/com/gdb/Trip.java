@@ -56,3 +56,14 @@ public class Trip {
     public void addPassenger(Customer customer){
         passenger.add(customer);
     }
+
+    private void setAvailableSeats() {
+        int capacity = bus.getCapacity();
+        for(int seat = 1; seat <= capacity; seat++){
+            availableSeats.add(seat);
+        }
+    }
+
+    public ArrayList<Integer> getAvailableSeats(){
+        return availableSeats;
+    }
