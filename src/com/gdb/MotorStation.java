@@ -61,3 +61,15 @@ public class MotorStation {
         this.users.add(customer);
 
     }
+
+    public User getUser(String email){
+        ListIterator<User> userListIterator = users.listIterator();
+        User user;
+        while (userListIterator.hasNext()){
+            user = userListIterator.next();
+            if(email.equals(user.getEmail())){
+                return user;
+            }
+        }
+        return null;
+    }
