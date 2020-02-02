@@ -52,3 +52,7 @@ public class Trip {
         this.isCompleted = true;
         return this.isCompleted;
     }
+
+    public void addPassenger(Customer customer){
+        passenger.add(customer);
+    }
