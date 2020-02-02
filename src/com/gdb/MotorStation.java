@@ -89,14 +89,26 @@ public class MotorStation {
 //        }
 //        return null;
 //    }
-private Customer searchCustomer (String id) {
-    ListIterator<User> customerListIterator = users.listIterator();
-    User customer;
-    while (customerListIterator.hasNext()) {
-        customer = customerListIterator.next();
-        if(id.equals(customer.getCustomerId())) {
-            return customer;
+//private Customer searchCustomer (String id) {
+//    ListIterator<User> customerListIterator = users.listIterator();
+//    User customer;
+//    while (customerListIterator.hasNext()) {
+//        customer = customerListIterator.next();
+//        if(id.equals(customer.getCustomerId())) {
+//            return customer;
+//        }
+//    }
+//    return null;
+//}
+
+    private Trip checkTrip(int tripId){
+        ListIterator<Trip> tripListIterator = availableTrips.listIterator();
+        Trip trip;
+        while (tripListIterator.hasNext()){
+            trip = tripListIterator.next();
+            if(tripId == trip.getId()){
+                return trip;
+            }
         }
+        return null;
     }
-    return null;
-}
