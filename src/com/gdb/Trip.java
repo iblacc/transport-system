@@ -81,3 +81,14 @@ public class Trip {
     public HashMap<String, ArrayList<Integer>> getSeatOwner() {
         return seatOwners;
     }
+
+    public void allocateSeat(int bookedSeat){
+        int seatsAvailable = availableSeats.size();
+        for(int seat = 0; seat < seatsAvailable; seat++)
+            if (bookedSeat == availableSeats.get(seat)) {
+                availableSeats.remove(seat);
+                break;
+            }
+    }
+
+}
