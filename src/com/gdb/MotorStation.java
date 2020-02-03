@@ -41,12 +41,12 @@ public class MotorStation {
         return false;
     }
 
-    private Bus checkBus(String id){
+    private Bus checkBus(String plateNumber){
         ListIterator<Bus> busListIterator = buses.listIterator();
         Bus bus;
         while (busListIterator.hasNext()){
             bus = busListIterator.next();
-            if(id.equals(bus.getId())){
+            if(plateNumber.equals(bus.getPlateNumber())){
                 return bus;
             }
         }
