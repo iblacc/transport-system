@@ -112,6 +112,18 @@ public class MotorStation {
         return getCash(completedTrips);
     }
 
+    private double getCash(ArrayList<Trip> trips){
+        ListIterator<Trip> tripListIterator = trips.listIterator();
+        Trip trip;
+        double totalAmount = 0;
+
+        while (tripListIterator.hasNext()) {
+            trip = tripListIterator.next();
+            totalAmount += trip.totalAmountMade();
+        }
+        return totalAmount;
+    }
+
     private Trip checkTrip(int tripId){
         ListIterator<Trip> tripListIterator = availableTrips.listIterator();
         Trip trip;
