@@ -149,6 +149,21 @@ public class MotorStation {
 
     }
 
+    public boolean createTrip(String fromLocation, String toLocation, double amount){
+        ListIterator<Bus> busListIterator = buses.listIterator();
+        Bus bus;
+        while (busListIterator.hasNext()){
+            bus = busListIterator.next();
+            if(!bus.isOnTrip()){
+                bus.setOnTrip(true);
+                Trip trip = new Trip(bus, fromLocation, toLocation, amount);
+                availableTrips.add(trip);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void makeComplaints(String message, Customer customer, int tripId){
         Complaints complaint = new Complaints(message, tripId, customer.getCustomerId());
         complaints.add(complaint);
