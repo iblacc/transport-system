@@ -103,6 +103,10 @@ public class MotorStation {
 //    }
 //    return null;
 //}
+public double totalCashByBus(Bus bus) {
+    ArrayList<Trip> completedTrips = bus.getCompletedTrips();
+    return getCash(completedTrips);
+}
 
     private Trip checkTrip(int tripId){
         ListIterator<Trip> tripListIterator = availableTrips.listIterator();
