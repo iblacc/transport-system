@@ -135,20 +135,6 @@ public class MotorStation {
         }
         return null;
     }
-
-    public boolean bookTrip(Customer customer, Trip trip, int seatNo){
-//        Trip trip = checkTrip(tripId);
-        if(customer.withdraw(trip.getAmount())){
-            trip.addPassenger(customer);
-            trip.allocateSeat(seatNo);
-            trip.setSeatOwner(customer.getCustomerId(), seatNo);
-            customer.addToTrips(trip);
-            return true;
-        }
-        return false;
-
-    }
-
     public boolean createTrip(String fromLocation, String toLocation, double amount){
         ListIterator<Bus> busListIterator = buses.listIterator();
         Bus bus;
@@ -163,6 +149,28 @@ public class MotorStation {
         }
         return false;
     }
+
+    public boolean bookTrip(Customer customer, Trip trip, int seatNo){
+//        Trip trip = checkTrip(tripId);
+        if(customer.withdraw(trip.getAmount())){
+            trip.addPassenger(customer);
+            trip.allocateSeat(seatNo);
+            trip.setSeatOwner(customer.getCustomerId(), seatNo);
+            customer.addToTrips(trip);
+            return true;
+        }
+        return false;
+
+    }
+
+    public void completeTrip(int tripId){
+        Trip trip = availableTrips.get(tripId);
+        trip.setCompleted(true);
+        trip.getBus().setOnTrip(false);
+        completedTrips.add(trip);
+        availableTrips.remove(tripId);
+    }
+
 
     public void makeComplaints(String message, Customer customer, int tripId){
         Complaints complaint = new Complaints(message, tripId, customer.getCustomerId());
