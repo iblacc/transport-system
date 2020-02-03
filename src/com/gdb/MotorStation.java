@@ -21,11 +21,15 @@ public class MotorStation {
         this.users = new ArrayList<>();
     }
 
-    public boolean addBus(String brand, int capacity){
-
-        buses.add(new Bus( brand, capacity));
-        return true;
+    public boolean addBus(String brand, int capacity, String plateNumber){
+        Bus bus = checkBus(plateNumber);
+        if(bus != null){
+            buses.add(new Bus( brand, capacity, plateNumber));
+            return true;
+        }
+        return false;
     }
+
 
     public boolean removeBus(String id){
         Bus bus = checkBus(id);
