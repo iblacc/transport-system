@@ -31,15 +31,14 @@ public class MotorStation {
     }
 
 
-    public boolean removeBus(String id){
-        Bus bus = checkBus(id);
+    public boolean removeBus(String plateNumber){
+        Bus bus = checkBus(plateNumber);
 
         if(bus != null){
             this.buses.remove(bus);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private Bus checkBus(String id){
