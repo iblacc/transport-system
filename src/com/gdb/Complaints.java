@@ -3,17 +3,17 @@ package com.gdb;
 import java.util.ArrayList;
 
 public class Complaints {
-    private static int complaintCount;
-    private String id;
-    private int userId;
-    private int busId;
+    private static int complaintCount = 0;
+    private int id;
+    private User user;
+    private Trip trip;
     private String message;
     private boolean isResolved = false;
 
-    public Complaints(int userId, int busId, String message) {
-        this.id = String.format("%s%d","Comp-", ++complaintCount);
-        this.userId = userId;
-        this.busId = busId;
+    public Complaints(User user, Trip trip, String message) {
+        this.id = ++complaintCount;
+        this.user = user;
+        this.trip = trip;
         this.message = message;
     }
 
@@ -22,16 +22,16 @@ public class Complaints {
         return isResolved;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public int getBusId() {
-        return busId;
+    public Trip getTrip() {
+        return trip;
     }
 
     public String getMessage() {
@@ -41,4 +41,5 @@ public class Complaints {
     public boolean isResolved() {
         return isResolved;
     }
+
 }
