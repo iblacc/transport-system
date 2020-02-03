@@ -1,24 +1,22 @@
-package com.gdb;
+gpackage com.gdb;
+
+import java.util.ArrayList;
 
 import java.util.ArrayList;
 
 public class Bus {
-    private static int busCount;
-    private String id;
     private ArrayList<Trip> completedTrips;
     private String brand;
     private int capacity;
-    private ArrayList<Integer> availableSeats= new ArrayList<Integer>();
+    private String plateNumber;
+    private boolean onTrip;
 
-    public Bus(String brand, int capacity) {
-        this.id = String.format("%s%d","Bus-", ++busCount);
+
+    public Bus(String brand, int capacity, String plateNumber) {
+        this.plateNumber = plateNumber;
         this.brand = brand;
         this.capacity = capacity;
-        this.setAvailableSeats();
-    }
-
-    public String getId() {
-        return id;
+        this.completedTrips = new ArrayList<>();
     }
 
     public ArrayList<Trip> getCompletedTrips() {
@@ -33,24 +31,15 @@ public class Bus {
         return capacity;
     }
 
-    private void setAvailableSeats() {
-        for(int seat = 1; seat <= capacity; seat++){
-            availableSeats.add(seat);
-        }
+    public boolean isOnTrip() {
+        return onTrip;
     }
 
-    public ArrayList<Integer> getAvailableSeats(){
-        return availableSeats;
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
-    public int allocateSeat(int bookedSeat){
-        int chair = 0;
-        for(int seat = 0; seat < availableSeats.size(); seat++){
-            if(bookedSeat == availableSeats.get(seat)){
-                chair = availableSeats.get(seat);
-                availableSeats.remove(seat);
-            }
-        }
-        return chair;
+    public void setOnTrip(boolean onTrip) {
+        this.onTrip = onTrip;
     }
 }
