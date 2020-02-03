@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.lang.String;
+import java.util.HashMap;
 
 public class Trip {
     private static int idCounter = 0;
@@ -40,9 +41,6 @@ public class Trip {
         return amount;
     }
 
-    public String getBusId(){
-        return bus.getId();
-    }
 
     public int getId() {
         return id;
@@ -52,11 +50,9 @@ public class Trip {
         this.isCompleted = true;
         return this.isCompleted;
     }
-
     public void addPassenger(Customer customer){
         passenger.add(customer);
     }
-
     private void setAvailableSeats() {
         int capacity = bus.getCapacity();
         for(int seat = 1; seat <= capacity; seat++){
@@ -91,4 +87,15 @@ public class Trip {
             }
     }
 
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
+
+    public Bus getBus() {
+        return bus;
+    }
+
+    public double totalAmountMade() {
+        return passenger.size() * amount;
+    }
 }

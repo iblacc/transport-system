@@ -13,7 +13,7 @@ public class MotorStation {
     ArrayList<Complaints> complaints;
 
 
-    public MotorStation(){
+    public MotorStation() {
         this.buses = new ArrayList<>();
         this.completedTrips = new ArrayList<>();
         this.availableTrips = new ArrayList<>();
@@ -21,66 +21,72 @@ public class MotorStation {
         this.users = new ArrayList<>();
     }
 
-    public boolean addBus(String brand, int capacity){
-
-        buses.add(new Bus( brand, capacity));
-        return true;
+    public boolean addBus(String brand, int capacity, String plateNumber) {
+        Bus bus = checkBus(plateNumber);
+        if (bus != null) {
+            buses.add(new Bus(brand, capacity, plateNumber));
+            return true;
+        }
+        return false;
     }
 
-    public boolean removeBus(String id){
-        Bus bus = checkBus(id);
 
-        if(bus != null){
+    public boolean removeBus(String plateNumber) {
+        Bus bus = checkBus(plateNumber);
+
+        if (bus != null) {
             this.buses.remove(bus);
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    private Bus checkBus(String id){
+    private Bus checkBus(String plateNumber) {
         ListIterator<Bus> busListIterator = buses.listIterator();
         Bus bus;
-        while (busListIterator.hasNext()){
+        while (busListIterator.hasNext()) {
             bus = busListIterator.next();
-            if(id.equals(bus.getId())){
+            if (plateNumber.equals(bus.getPlateNumber())) {
                 return bus;
             }
         }
         return null;
     }
 
-    public void registerAdmin(String name, String email, String phoneNumber, String address){
+    public void registerAdmin(String name, String email, String phoneNumber, String address) {
         Admin admin = new Admin(name, email, phoneNumber, address);
         this.users.add(admin);
 
     }
 
-    public void registerCustomer(String name, String email, String phoneNumber, String address){
+    public void registerCustomer(String name, String email, String phoneNumber, String address) {
         Customer customer = new Customer(name, email, phoneNumber, address);
         this.users.add(customer);
 
     }
 
-    public User getUser(String email){
+    public User getUser(String email) {
         ListIterator<User> userListIterator = users.listIterator();
         User user;
-        while (userListIterator.hasNext()){
+        while (userListIterator.hasNext()) {
             user = userListIterator.next();
-            if(email.equals(user.getEmail())){
+            if (email.equals(user.getEmail())) {
                 return user;
             }
         }
         return null;
     }
+
     public ArrayList<Trip> getAvailableTrips() {
         return availableTrips;
     }
 
-    public ArrayList<Trip> getCompletedTrips(){
+    public ArrayList<Trip> getCompletedTrips() {
         return completedTrips;
+
     }
-//    public static Customer deleteUser(String customerId) {
+
+    //    public static Customer deleteUser(String customerId) {
 //        if (!customers.contains(customerId)) {
 //            System.out.println("User does not exist");
 //        } else {
@@ -100,22 +106,57 @@ public class MotorStation {
 //    }
 //    return null;
 //}
+    public double totalCashByBus(Bus bus) {
+        ArrayList<Trip> completedTrips = bus.getCompletedTrips();
+        return getCash(completedTrips);
+    }
 
-    private Trip checkTrip(int tripId){
+    public double totalCash() {
+        return getCash(completedTrips);
+    }
+
+    private double getCash(ArrayList<Trip> trips) {
+        ListIterator<Trip> tripListIterator = trips.listIterator();
+        Trip trip;
+        double totalAmount = 0;
+
+        while (tripListIterator.hasNext()) {
+            trip = tripListIterator.next();
+            totalAmount += trip.totalAmountMade();
+        }
+        return totalAmount;
+    }
+
+    private Trip checkTrip(int tripId) {
         ListIterator<Trip> tripListIterator = availableTrips.listIterator();
         Trip trip;
-        while (tripListIterator.hasNext()){
+        while (tripListIterator.hasNext()) {
             trip = tripListIterator.next();
-            if(tripId == trip.getId()){
+            if (tripId == trip.getId()) {
                 return trip;
             }
         }
         return null;
     }
 
-    public boolean bookTrip(Customer customer, Trip trip, int seatNo){
+    public boolean createTrip(String fromLocation, String toLocation, double amount) {
+        ListIterator<Bus> busListIterator = buses.listIterator();
+        Bus bus;
+        while (busListIterator.hasNext()) {
+            bus = busListIterator.next();
+            if (!bus.isOnTrip()) {
+                bus.setOnTrip(true);
+                Trip trip = new Trip(bus, fromLocation, toLocation, amount);
+                availableTrips.add(trip);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean bookTrip(Customer customer, Trip trip, int seatNo) {
 //        Trip trip = checkTrip(tripId);
-        if(customer.withdraw(trip.getAmount())){
+        if (customer.withdraw(trip.getAmount())) {
             trip.addPassenger(customer);
             trip.allocateSeat(seatNo);
             trip.setSeatOwner(customer.getCustomerId(), seatNo);
@@ -126,19 +167,32 @@ public class MotorStation {
 
     }
 
-    public void makeComplaints(String message, Customer customer, int tripId){
+    public void completeTrip(int tripId) {
+        Trip trip = availableTrips.get(tripId);
+        trip.setCompleted(true);
+        trip.getBus().setOnTrip(false);
+        completedTrips.add(trip);
+        availableTrips.remove(tripId);
+    }
+
+
+    public void makeComplaints(String message, Customer customer, int tripId) {
         Complaints complaint = new Complaints(message, tripId, customer.getCustomerId());
         complaints.add(complaint);
         customer.addToComplaints(complaint);
     }
-    public ArrayList<Complaints> resolveComplaints(String userId){
-        ListIterator<Complaints> resolvedComplaints = complaints.listIterator();
-        Complaints complaint;
-        while(resolvedComplaints.hasNext()){
-            complaint = resolvedComplaints.next();
-            if(complaint.getUserId().equalsIgnoreCase(userId)){
 
+    public boolean resolveComplaints(int complaintId) {
+        ListIterator<Complaints> resolveComplaints = complaints.listIterator();
+        Complaints complaint;
+        while (resolveComplaints.hasNext()) {
+            complaint = resolveComplaints.next();
+            if (!complaint.isResolved()) {
+                complaint.setResolved(true);
+                return true;
             }
         }
+        return false;
 
     }
+}
